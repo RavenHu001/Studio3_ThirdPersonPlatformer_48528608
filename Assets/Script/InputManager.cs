@@ -36,7 +36,7 @@ public class InputManager : MonoBehaviour
 
         //jump
         Vector3 inputY = Vector3.zero;
-        if (Input.GetKeyDown(KeyCode.Space)) 
+        if (Input.GetKeyDown(KeyCode.Space)) // we just want the jump is called once when space is press down.
         { 
             inputY = Vector3.up; // because jump is impulse force, so vector is constant
         }
