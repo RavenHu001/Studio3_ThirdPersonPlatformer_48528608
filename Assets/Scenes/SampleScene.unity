@@ -867,6 +867,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   inputManager: {fileID: 2036498367}
+  freeLookCamera: {fileID: 329836324}
   speed: 1
   jumpForce: 8
 --- !u!1 &1350226018

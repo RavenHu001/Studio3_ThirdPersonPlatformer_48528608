@@ -32,7 +32,7 @@ public class PlayerControl : MonoBehaviour
     //apply x,z move of player
     private void MovePlayerXZ(Vector2 direction)
     {
-        Vector3 moveDirection = new(direction.x, 0f, direction.y);
+        Vector3 moveDirection = transform.forward * direction.y+transform.right*direction.x;
         rb.AddForce(moveDirection * speed, ForceMode.Force);
     }
 
@@ -42,7 +42,7 @@ public class PlayerControl : MonoBehaviour
         if (canJump()&&direction.y>0)
         {
             //Debug.Log("jump");
-            Vector3 moveDirection = new(0, 1, 0);
+            Vector3 moveDirection = new(0, direction.y, 0);
             rb.AddForce(moveDirection * jumpForce, ForceMode.Impulse);
         }
     }
