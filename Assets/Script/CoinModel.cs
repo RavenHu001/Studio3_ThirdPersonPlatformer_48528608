@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class Coin : MonoBehaviour
+public class CoinModel: MonoBehaviour
 {
     [SerializeField] private float roateRate = 90f;
     // Update is called once per frame

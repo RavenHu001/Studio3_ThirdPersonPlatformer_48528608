@@ -10,7 +10,8 @@ public class CollisionTrigger : MonoBehaviour
         { 
             getCoin?.Invoke();
             Debug.Log("Get coin");
-            Destroy(gameObject);
+            GameObject parnent = transform.parent.gameObject;
+            Destroy(parnent);
         }
     }
 }
