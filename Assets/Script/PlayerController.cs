@@ -32,8 +32,11 @@ public class PlayerControl : MonoBehaviour
     //apply x,z move of player
     private void MovePlayerXZ(Vector2 direction)
     {
-        Vector3 moveDirection = transform.forward * direction.y+transform.right*direction.x;
-        rb.AddForce(moveDirection * speed, ForceMode.Force);
+        if (isGrounded)
+        {
+            Vector3 moveDirection = transform.forward * direction.y + transform.right * direction.x;
+            rb.AddForce(moveDirection * speed, ForceMode.Force);
+        }
     }
 
     //apply y move of player
