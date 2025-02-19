@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8011716906199241871}
   m_Layer: 0
-  m_Name: Boundarys
+  m_Name: Boundary
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
