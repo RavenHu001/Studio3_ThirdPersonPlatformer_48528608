@@ -7,7 +7,8 @@ public class PlayerControl : MonoBehaviour
     [SerializeField] private float jumpForce;
 
     private Rigidbody rb;
-    private bool isJumped = false;
+    private bool isGrounded;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -26,7 +27,36 @@ public class PlayerControl : MonoBehaviour
     //apply y move of player
     private void JumpPlayer(Vector3 direction) 
     {
-        Vector3 moveDirection = new(0,direction.y,0);
-        rb.AddForce(moveDirection * jumpForce, ForceMode.Impulse);
+        if (canJump()&&direction.y>0)
+        {
+            Debug.Log("jump");
+            Vector3 moveDirection = new(0, 1, 0);
+            rb.AddForce(moveDirection * jumpForce, ForceMode.Impulse);
+        }
+    }
+
+    //method to check can or cannot jump
+    private bool canJump() 
+    {
+        if(isGrounded) return true;
+        return false;
+    }
+
+    //collision checker
+    void OnCollisionEnter(Collision collision)
+    {
+        // Check if it collides with the ground
+        if (collision.gameObject.CompareTag("Ground"))
+        {
+            isGrounded = true;
+        }
+    }
+    void OnCollisionExit(Collision collision)
+    {
+        // Leave ground then update
+        if (collision.gameObject.CompareTag("Ground"))
+        {
+            isGrounded = false;
+        }
     }
 }

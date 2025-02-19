@@ -36,9 +36,9 @@ public class InputManager : MonoBehaviour
 
         //jump
         Vector3 inputY = Vector3.zero;
-        if (Input.GetKey(KeyCode.Space)) 
+        if (Input.GetKeyDown(KeyCode.Space)) 
         { 
-            inputY += Vector3.up;
+            inputY = Vector3.up; // because jump is impulse force, so vector is constant
         }
         onJump?.Invoke(inputY);
     }
