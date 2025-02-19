@@ -1,10 +1,12 @@
 using System.Net.NetworkInformation;
+using TMPro;
 using UnityEngine;
 using UnityEngine.SocialPlatforms.Impl;
 
 public class GameManager : MonoBehaviour
 {
     [SerializeField] private float score=0f;
+    [SerializeField] private TextMeshProUGUI scoreText;
     private CollisionTrigger[] coins;
 
     public void Start()
@@ -19,6 +21,7 @@ public class GameManager : MonoBehaviour
     private void IncrementScore() 
     {
         score++;
+        scoreText.text = $"Score: {score}";
     }
     
 }
