@@ -1515,6 +1515,7 @@ MonoBehaviour:
   freeLookCamera: {fileID: 329836324}
   speed: 1
   jumpForce: 6
+  doubleJumpForce: 6
 --- !u!1 &1097977337
 GameObject:
   m_ObjectHideFlags: 0
