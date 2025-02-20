@@ -47,8 +47,7 @@ public class InputManager : MonoBehaviour
         Vector2 inputDash = Vector2.zero;
         if (Input.GetKeyDown(KeyCode.E)) 
         { 
-            inputDash = Vector2.up;
-
+            onDash?.Invoke(inputDash);
         }
     }
 }

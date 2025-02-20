@@ -1,4 +1,6 @@
+using System.Collections;
 using Unity.Cinemachine;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
 public class PlayerControl : MonoBehaviour
@@ -9,6 +11,8 @@ public class PlayerControl : MonoBehaviour
     [SerializeField] private float speed;
     [SerializeField] private float jumpForce;
     [SerializeField] private float doubleJumpForce;
+    [SerializeField] private float dashForce;
+    [SerializeField] private float dashCoolDown;
 
     private int maxJumpCount = 2;
     private int jumpCount = 0;
@@ -16,6 +20,9 @@ public class PlayerControl : MonoBehaviour
     private int dashCount = 0;
     private float height;
     private bool isGrounded;
+
+    private Coroutine resetCoroutine;
+
     private Rigidbody rb;
     private CapsuleCollider playerCollider;
 
@@ -30,6 +37,7 @@ public class PlayerControl : MonoBehaviour
         //add listener
         inputManager.onMove.AddListener(MovePlayerXZ);
         inputManager.onJump.AddListener(JumpPlayer);
+        inputManager.onDash.AddListener(DashPlayer);
     }
 
     // Update is called once per frame
@@ -37,6 +45,11 @@ public class PlayerControl : MonoBehaviour
     {
         transform.forward = freeLookCamera.transform.forward;
         transform.rotation = Quaternion.Euler(0, transform.rotation.eulerAngles.y, 0);
+        // if dash used start cooldown
+        if (dashCount == maxDashCount) 
+        {
+            resetCoroutine = StartCoroutine(ResetAfterTime());
+        }
     }
 
     //apply x,z move of player
@@ -53,15 +66,29 @@ public class PlayerControl : MonoBehaviour
         CheckGrounded();
         if (jumpCount<maxJumpCount)
         {
+            Debug.Log("jump");
             //choose the force of jump based on jumpCount
             float force = (jumpCount != maxJumpCount) ? jumpForce : doubleJumpForce;
             // reset the y axis velocity
             rb.linearVelocity = new Vector3(rb.linearVelocity.x, 0, rb.linearVelocity.z);
-            //Debug.Log("jump");
             Vector3 moveDirection = new(0, direction.y, 0);
             rb.AddForce(moveDirection * jumpForce, ForceMode.Impulse);
-            //decrease jump count
+            //update jump count
             jumpCount++;
+        }
+    }
+
+    //apply dash to player
+    private void DashPlayer(Vector2 direction) 
+    {
+        if (dashCount < maxDashCount) 
+        {
+            Debug.Log("Dash");
+            // reset all velocity
+            rb.linearVelocity = new Vector3(0, 0, 0);
+            rb.AddForce(transform.forward * dashForce, ForceMode.Impulse);
+            //update dash count
+            dashCount++;
         }
     }
 
@@ -74,8 +101,20 @@ public class PlayerControl : MonoBehaviour
 
         if (isGrounded)
         {
-            jumpCount = 0;//reset jumpCount
+            //reset jumpCount
+            jumpCount = 0;
         }
+    }
+
+    //method to reset dashCount
+    private IEnumerator ResetAfterTime() 
+    {
+        //waite for cool Down
+        yield return new WaitForSeconds(dashCoolDown);
+        //reset dashCount
+        dashCount = 0;
+        //remove timer
+        resetCoroutine = null;
     }
 
 }

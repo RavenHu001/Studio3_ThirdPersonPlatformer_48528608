@@ -1516,6 +1516,8 @@ MonoBehaviour:
   speed: 1
   jumpForce: 6
   doubleJumpForce: 6
+  dashForce: 10
+  dashCoolDown: 3
 --- !u!1 &1097977337
 GameObject:
   m_ObjectHideFlags: 0
@@ -1882,6 +1884,9 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   onJump:
+    m_PersistentCalls:
+      m_Calls: []
+  onDash:
     m_PersistentCalls:
       m_Calls: []
 --- !u!4 &2036498368
