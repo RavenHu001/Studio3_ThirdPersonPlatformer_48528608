@@ -5,6 +5,7 @@ public class InputManager : MonoBehaviour
 {
     public UnityEvent<Vector2> onMove = new UnityEvent<Vector2>();
     public UnityEvent<Vector3> onJump = new UnityEvent<Vector3>();
+    public UnityEvent<Vector2> onDash = new UnityEvent<Vector2>();
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -36,10 +37,17 @@ public class InputManager : MonoBehaviour
 
         //jump
         Vector3 inputY = Vector3.zero;
-        if (Input.GetKey(KeyCode.Space)) 
+        if (Input.GetKeyDown(KeyCode.Space)) // we just want the jump is called once when space is press down.
         { 
-            inputY += Vector3.up;
+            inputY = Vector3.up; // because jump is impulse force, so vector is constant
+            onJump?.Invoke(inputY);//make sure the jump would not be multiple called
         }
-        onJump?.Invoke(inputY);
+
+        //Dash
+        Vector2 inputDash = Vector2.zero;
+        if (Input.GetKeyDown(KeyCode.E)) 
+        { 
+            onDash?.Invoke(inputDash);
+        }
     }
 }
