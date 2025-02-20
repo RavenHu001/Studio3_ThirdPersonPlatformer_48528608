@@ -1962,7 +1962,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   inputManager: {fileID: 2036498367}
   freeLookCamera: {fileID: 329836324}
-  speed: 1
+  speed: 1.2
   jumpForce: 6
   doubleJumpForce: 6
   dashForce: 10
